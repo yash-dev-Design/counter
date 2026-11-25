@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <meta name="theme-color" content="#050706">
+  <title>AD Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --background-image: url("bg.png");
+      /* Replace background.jpg with your image filename */
+      --accent: #d8f3a6;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, .72);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% 48%, rgba(15, 28, 17, .22), rgba(0, 0, 0, .9) 78%),
+        #050706;
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+
+    .stage {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      justify-items: center;
+      align-items: end;
+      padding: 16px 0 calc(24px + env(safe-area-inset-bottom));
+      background-image:
+        linear-gradient(90deg, rgba(0, 0, 0, .24), rgba(0, 0, 0, .08) 48%, rgba(0, 0, 0, .3)),
+        linear-gradient(0deg, rgba(0, 0, 0, .6), transparent 38%, rgba(0, 0, 0, .1)),
+        var(--background-image);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse at center, transparent 15%, rgba(0, 0, 0, .42) 100%);
+      pointer-events: none;
+    }
+
+    .content {
+      width: min(calc(100% - 32px), 760px);
+      text-align: center;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, .8);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      font-size: clamp(14px, 2.5vw, 19px);
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: .105em;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      margin: 0 0 20px;
+      font-size: clamp(26px, 6vw, 48px);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: .075em;
+      text-transform: uppercase;
+    }
+
+    .timer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: clamp(3px, 2.2vw, 19px);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .unit {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .number {
+      font-size: clamp(21px, 7vw, 36px);
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+
+    .label {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: clamp(7px, 1.2vw, 9px);
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .separator {
+      padding-top: 0;
+      font-size: clamp(20px, 6vw, 34px);
+      line-height: .95;
+      font-weight: 400;
+      opacity: .9;
+    }
+
+    .expired {
+      margin: 17px 0 0;
+      font-size: 11px;
+      letter-spacing: .22em;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .credit {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: clamp(10px, 2.7vw, 12px);
+      font-weight: 500;
+      letter-spacing: .06em;
+    }
+
+    @media (max-width: 350px) {
+      .timer {
+        gap: 2px;
+      }
+
+      .number {
+        font-size: 20px;
+      }
+
+      .separator {
+        font-size: 19px;
+      }
+
+      .label {
+        letter-spacing: .08em;
+      }
+    }
+
+    @media (min-width: 700px) {
+      .stage {
+        padding-bottom: clamp(28px, 8vh, 76px);
+      }
+
+      .number {
+        font-size: clamp(25px, 6.3vw, 47px);
+        letter-spacing: .13em;
+      }
+
+      .separator {
+        font-size: clamp(23px, 5.8vw, 42px);
+      }
+    }
+
+    @media (max-height: 520px) {
+      .stage {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+      }
+
+      .headline {
+        margin-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage">
+    <section class="content" aria-label="Countdown">
+      <!-- <p class="eyebrow">Your next chapter begins in</p> -->
+      <!-- <h1 class="headline">AD Vault</h1> -->
+      <div class="timer" role="timer" aria-live="off" aria-label="Time remaining">
+        <div class="unit"><span class="number" id="days">17</span><span class="label">Days</span></div>
+        <span class="separator" aria-hidden="true">:</span>
+        <div class="unit"><span class="number" id="hours">00</span><span class="label">Hours</span></div>
+        <span class="separator" aria-hidden="true">:</span>
+        <div class="unit"><span class="number" id="minutes">00</span><span class="label">Minutes</span></div>
+        <span class="separator" aria-hidden="true">:</span>
+        <div class="unit"><span class="number" id="seconds">00</span><span class="label">Seconds</span></div>
+      </div>
+      <p class="expired" id="expired" hidden>The countdown has ended</p>
+      <p class="credit">TO LAUNCH</p>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const STORAGE_KEY = "adVaultCountdownDeadline_v1";
+      const DURATION_MS = 17 * 24 * 60 * 60 * 1000;
+
+      // Set the deadline once. Reopening the site reads the same saved deadline.
+      let deadline = Number(localStorage.getItem(STORAGE_KEY));
+      if (!Number.isFinite(deadline) || deadline <= 0) {
+        deadline = Date.now() + DURATION_MS;
+        localStorage.setItem(STORAGE_KEY, String(deadline));
+      }
+
+      const fields = {
+        days: document.getElementById("days"),
+        hours: document.getElementById("hours"),
+        minutes: document.getElementById("minutes"),
+        seconds: document.getElementById("seconds")
+      };
+      const expiredMessage = document.getElementById("expired");
+      const pad = value => String(value).padStart(2, "0");
+
+      function updateCountdown() {
+        const remaining = Math.max(0, deadline - Date.now());
+        const totalSeconds = Math.floor(remaining / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        fields.days.textContent = pad(days);
+        fields.hours.textContent = pad(hours);
+        fields.minutes.textContent = pad(minutes);
+        fields.seconds.textContent = pad(seconds);
+
+        if (remaining <= 0) {
+          expiredMessage.hidden = false;
+          clearInterval(intervalId);
+        }
+      }
+
+      updateCountdown();
+      const intervalId = setInterval(updateCountdown, 250);
+
+      // Keep multiple open tabs synchronized to the same saved deadline.
+      window.addEventListener("storage", event => {
+        if (event.key === STORAGE_KEY && event.newValue) {
+          const updatedDeadline = Number(event.newValue);
+          if (Number.isFinite(updatedDeadline) && updatedDeadline > 0) {
+            deadline = updatedDeadline;
+            updateCountdown();
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
